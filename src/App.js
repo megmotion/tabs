@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import TabsList from './components/TabsList';
+import Searchbox from './components/Searchbox';
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      tabs: [],
+      searchfield: ''
+    }
+  }
+
+  onSearchChange = (event) => {
+     this.setState({ searchfield: event.target.value})
+  }
+
+  onSearchTabs = () => {
+     fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${this.state.searchfield}`)
+      .then(response => response.json())
+      .then(items => this.setState({tabs: items}))
+  }
+
+  render() {
+      return (
+        <div className="App">
+          <Searchbox 
+            searchChange={this.onSearchChange}
+            searchTabs={this.onSearchTabs}
+          />
+          <TabsList tabs={this.state.tabs}/>
+        </div>
+      );
+    }
 }
 
 export default App;
