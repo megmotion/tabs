@@ -3,13 +3,15 @@ import './App.css';
 
 import TabsList from './components/TabsList';
 import Searchbox from './components/Searchbox';
+import Spinner from './components/Spinner';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       tabs: [],
-      searchfield: ''
+      searchfield: '',
+      fetchInProgress:false
     }
   }
 
@@ -18,9 +20,10 @@ class App extends Component {
   }
 
   onSearchTabs = () => {
-     fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${this.state.searchfield}`)
-      .then(response => response.json())
-      .then(items => this.setState({tabs: items}))
+    this.setState({fetchInProgress: true})
+      fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${this.state.searchfield}`)
+        .then(response => response.json())
+        .then(items => this.setState({tabs: items, fetchInProgress: false}))
   }
 
   render() {
@@ -29,8 +32,14 @@ class App extends Component {
           <Searchbox 
             searchChange={this.onSearchChange}
             searchTabs={this.onSearchTabs}
+            onKeyDown={this.onKeyDown}
           />
-          <TabsList tabs={this.state.tabs}/>
+          {
+            this.state.fetchInProgress
+              ? <Spinner />
+              : <TabsList tabs={this.state.tabs}/>
+          }
+          
         </div>
       );
     }
