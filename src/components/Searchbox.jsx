@@ -1,7 +1,7 @@
  import React from 'react';
 
- const Searchbox = ({ searchChange, searchTabs, onKeyDown }) => {
- 	onKeyDown = (event) => {
+ const Searchbox = ({ searchChange, searchTabs }) => {
+ 	const onKeyDown = (event) => {
     if(event.key === "Enter" || event.code === "NumpadEnter"){
       searchTabs()
     }
