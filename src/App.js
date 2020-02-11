@@ -9,6 +9,7 @@ import TabsList from './components/TabsList';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const theme = createMuiTheme({
    palette: {
@@ -44,6 +45,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       padding: '0.5vh',
     },
+  },
+  message: {
+    padding: '2vh',
   }
 }));
 
@@ -53,6 +57,7 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchfield, setSearchfield] = useState('');
   const [tabsPerPage] = useState(12);
+  const [message, setMessage] = useState('');
   const classes = useStyles();
 
   //Tab search
@@ -61,12 +66,16 @@ const App = () => {
   }
 
   const onSearchTabs = () => {
+    setTabs([]);
     setLoading(true)
       fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${searchfield}`)
         .then(response => response.json())
         .then(items => {
-          setTabs(items);
-          setLoading(false)
+          if (items.length === 0) {
+            setMessage('No results found :('); setLoading(false)
+          } else {
+            setTabs(items); setLoading(false)
+          }
         })
   }
 
@@ -87,12 +96,16 @@ const App = () => {
         {
           loading
             ? <Spinner />
-            : <div className={classes.container}>
+            : tabs.length===0
+              ?  <Typography variant="h3" gutterBottom color="primary" className={classes.message}>
+                  {message}
+                 </Typography>
+              : <div className={classes.container}>
                 <TabsList tabs={currentTabs}/>
                 { tabs.length>12
                 ? <Pagination paginate={paginate} tabsPerPage={tabsPerPage} totalTabs={tabs.length}/>
                 : null
-              }
+                }
               </div>
         }      
       </Paper>
