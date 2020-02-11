@@ -2,7 +2,9 @@
 
 Simple React app for searching music tabs, using [Songsterr API](https://www.songsterr.com/a/wa/api).
 
-Live: [https://www.songsterr.com/a/wa/api](https://megmotion.github.io/tabs/).
+Live: [https://megmotion.github.io/tabs](https://megmotion.github.io/tabs/).
+
+<img src="src/preview.png" width="500">
 
 Styled with: [Material UI](https://material-ui.com/).
 
