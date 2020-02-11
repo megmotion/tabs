@@ -68,7 +68,7 @@ const App = () => {
   const onSearchTabs = () => {
     setTabs([]);
     setLoading(true)
-      fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${searchfield}`)
+      fetch(`https://www.songsterr.com/a/ra/songs.json?pattern=${searchfield}`)
         .then(response => response.json())
         .then(items => {
           if (items.length === 0) {
