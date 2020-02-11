@@ -1,17 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Pagination from './components/Pagination';
 import Searchbox from './components/Searchbox';
 import Spinner from './components/Spinner';
 import TabsList from './components/TabsList';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
+const theme = createMuiTheme({
+   palette: {
+      primary: {
+         light: '#fff',
+         main: '#aa1',
+         dark: '#770'
+      },
+      secondary: {
+        main: '#ccc',
+      },
+   },
+   typography: { 
+      useNextVariants: true
+   }
+});
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: 1200,
+    minHeight: '85vh',
+    margin: 'auto',
+    marginTop: '3vh',
+    background: '#eee',
+    fontSize: 'calc(4px + 2vmin)',
+    textAlign: 'center'
+
+  },
+  container: {
+    padding: '2vh',
+  }
+}));
 
 const App = () => {
   const [tabs, setTabs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchfield, setSearchfield] = useState('');
-  const [tabsPerPage] = useState(5);
+  const [tabsPerPage] = useState(12);
+  const classes = useStyles();
 
   //Tab search
   const onSearchChange = (event) => {
@@ -36,20 +73,25 @@ const App = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (
-    <div className="App">
-      <Searchbox 
-        searchChange={onSearchChange}
-        searchTabs={onSearchTabs}
-      />
-      {
-        loading
-          ? <Spinner />
-          : <div>
-              <TabsList tabs={currentTabs}/>
-              <Pagination paginate={paginate} tabsPerPage={tabsPerPage} totalTabs={tabs.length}/>
-            </div>
-      }      
-    </div>
+    <MuiThemeProvider theme = { theme }>
+      <Paper elevation={16} className={classes.root} square >
+        <Searchbox 
+          searchChange={onSearchChange}
+          searchTabs={onSearchTabs}
+        />
+        {
+          loading
+            ? <Spinner />
+            : <div className={classes.container}>
+                <TabsList tabs={currentTabs}/>
+                { tabs.length>12
+                ? <Pagination paginate={paginate} tabsPerPage={tabsPerPage} totalTabs={tabs.length}/>
+                : null
+              }
+              </div>
+        }      
+      </Paper>
+      </MuiThemeProvider> 
   );
 }
 
