@@ -40,6 +40,7 @@
  		<Card className={classes.root} square >
 	 		<TextField 
 	 			variant="outlined"
+	 			placeholder="Title or/and artist"
 	 			onChange={searchChange}
 	 			onKeyDown={onKeyDown}
 	 			className={classes.textfield}
