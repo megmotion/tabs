@@ -9,7 +9,11 @@
   root: {
   	textAlign: 'center',
   	position: 'relative',
-  	background: '#161616'
+  	background: '#161616',
+  	padding: '0.5vh',
+  	[theme.breakpoints.down('md')]: {
+      paddingTop: '1.5vh',
+    },
   },
   textfield: {
   	margin: '1.5vh',
@@ -18,7 +22,7 @@
   	margin: '2vh',
   },
   input: {
-    fontSize: '2vh',
+    fontSize: 'calc(8px + 1.5vh)',
     background:'#fff',
     borderRadius: 0,
     color:'#770'

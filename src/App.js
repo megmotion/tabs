@@ -33,12 +33,17 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
     marginTop: '3vh',
     background: '#eee',
-    fontSize: 'calc(4px + 2vmin)',
-    textAlign: 'center'
-
+    fontSize: 'calc(10px + 2vmin)',
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      marginTop: '0',
+    },
   },
   container: {
     padding: '2vh',
+    [theme.breakpoints.down('md')]: {
+      padding: '0.5vh',
+    },
   }
 }));
 

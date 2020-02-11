@@ -9,8 +9,14 @@ import Breadcrumbs  from '@material-ui/core/Breadcrumbs';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
 const useStyles = makeStyles(theme => ({
+  listItem:{
+  	[theme.breakpoints.down('md')]: {
+      padding: '8px',
+    },
+  },
   icon: {
   	width: 'calc(20px + 2vmin)',
+  	minWidth: '32px'
   },
   link: {
   	marginTop: '-0.5vh',
@@ -19,14 +25,17 @@ const useStyles = makeStyles(theme => ({
   	}
   },
   type: {
-  	paddingLeft: '10px'
+  	paddingLeft: '10px',
+  	[theme.breakpoints.down('md')]: {
+      padding: '6px',
+    },
   }
 }));
 
 const Tab = ({ id, artist, title, tabTypes }) => {
 	const classes = useStyles();
  	return (
- 		<ListItem>
+ 		<ListItem className={classes.listItem}>
 	 		<ListItemAvatar >
 		          <img src={icon} alt='music note' className={classes.icon}/>
 	        </ListItemAvatar>

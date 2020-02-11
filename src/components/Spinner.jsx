@@ -5,9 +5,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
-  	marginTop:'20vh'
-
-
+  	marginTop:'20vh',
+  	[theme.breakpoints.down('md')]: {
+      marginTop:'10vh'
+    },
   },
 }));
 
