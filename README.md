@@ -1,4 +1,14 @@
+## Tabs
+
+Simple React app for searching music tabs, using [Songsterr API]
+(https://www.songsterr.com/a/wa/api).
+
+Live: [https://www.songsterr.com/a/wa/api](https://www.songsterr.com/a/wa/api).
+
+Styled with: [Material UI](https://material-ui.com/).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
